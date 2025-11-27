@@ -121,13 +121,23 @@ uploaded_file = st.file_uploader(
     "Sube tu archivo Excel (.xlsx)", type=["xlsx", "xls"]
 )
 
-if not uploaded_file:
-    st.info("⬆️ Sube un Excel para empezar.")
-    st.stop()
+@st.cache_data
+def cargar_datos(uploaded_file):
+    """Carga el Excel subido o, si no hay, uno de ejemplo por defecto."""
+    if uploaded_file is not None:
+        df_raw = pd.read_excel(uploaded_file)
+        origen = "Excel subido por el usuario"
+    else:
+        # Excel de ejemplo que has subido al repositorio
+        df_raw = pd.read_excel("proveedores_principales_provincias.xlsx")
+        origen = "Excel de ejemplo por defecto"
+
+    df = preparar_dataframe(df_raw)
+    return df, origen
 
 try:
-    df_raw = pd.read_excel(uploaded_file)
-    df = preparar_dataframe(df_raw)
+    df, origen_datos = cargar_datos(uploaded_file)
+    st.caption(f"🗂 Origen de datos: {origen_datos}")
 except Exception as e:
     st.error(f"Error al leer/procesar el archivo: {e}")
     st.stop()
