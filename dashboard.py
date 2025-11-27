@@ -58,29 +58,21 @@ div[data-baseweb="select"] > div {{
     box-shadow: 0 0 0 1px rgba(31,79,163,0.1);
 }}
 
+/* Chips de selección (lo que ahora ves rojo) */
+div[data-baseweb="tag"] {{
+    background-color: #e3f2ff !important;
+    color: #11325f !important;
+    border-radius: 999px !important;
+    border: 1px solid #b3d4ff !important;
+    font-weight: 500 !important;
+}}
+
 /* Botones generales */
 button {{
     background-color: {FAMAEX_BLUE} !important;
     color: #ffffff !important;
     border-radius: 999px !important;
     border: none !important;
-}}
-
-/* Tarjetas KPI (metric) */
-div[data-testid="metric-container"] {{
-    background: linear-gradient(135deg, #1f4fa3, #0090ff);
-    border-radius: 18px;
-    padding: 1.1rem 1.3rem;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-}}
-div[data-testid="metric-container"] > div:nth-child(1) > span {{
-    color: #e3f2ff !important;   /* etiqueta */
-    font-weight: 600 !important;
-}}
-div[data-testid="metric-container"] > div:nth-child(2) > span {{
-    color: #ffffff !important;   /* valor */
-    font-size: 1.3rem !important;
-    font-weight: 700 !important;
 }}
 
 /* Barra superior corporativa */
@@ -305,7 +297,7 @@ if df_filtrado.empty:
     st.stop()
 
 # -----------------------------
-# KPIs generales (tarjetas con iconos)
+# KPIs generales (con iconos, estilo normal)
 # -----------------------------
 col1, col2, col3, col4 = st.columns(4)
 
