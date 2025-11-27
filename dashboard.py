@@ -58,14 +58,14 @@ div[data-baseweb="select"] > div {{
     box-shadow: 0 0 0 1px rgba(31,79,163,0.1);
 }}
 
-/* Chips de selección (lo que ahora ves rojo) */
-div[data-baseweb="tag"] {{
-    background-color: #e3f2ff !important;
-    color: #11325f !important;
+/* Chips de selección (los tags de los filtros) */
+[data-baseweb="tag"] {
+    background-color: #e3f2ff !important;   /* azul muy clarito */
+    color: #11325f !important;              /* texto azul oscuro */
     border-radius: 999px !important;
     border: 1px solid #b3d4ff !important;
     font-weight: 500 !important;
-}}
+}
 
 /* Botones generales */
 button {{
