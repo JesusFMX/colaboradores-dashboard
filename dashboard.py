@@ -96,6 +96,39 @@ button {{
     color: #55627a;
 }}
 
+/* Tarjetas KPI corporativas */
+.kpi-row {{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}}
+.kpi-card {{
+    background: linear-gradient(135deg, #1f4fa3, #0090ff);
+    border-radius: 18px;
+    padding: 1rem 1.3rem;
+    color: #ffffff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}}
+.kpi-icon {{
+    font-size: 1.4rem;
+    margin-bottom: 0.2rem;
+}}
+.kpi-label {{
+    font-size: 0.9rem;
+    opacity: 0.9;
+}}
+.kpi-value {{
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-top: 0.1rem;
+}}
+@media (max-width: 900px) {{
+    .kpi-row {{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }}
+}}
+
 /* Footer corporativo */
 .famaex-footer {{
     margin-top: 2.2rem;
@@ -297,18 +330,40 @@ if df_filtrado.empty:
     st.stop()
 
 # -----------------------------
-# KPIs generales (con iconos, estilo normal)
+# KPIs generales - tarjetas corporativas
 # -----------------------------
-col1, col2, col3, col4 = st.columns(4)
+kpi_colabs = df_filtrado["Colaborador"].nunique()
+kpi_provincias = df_filtrado["Provincia"].nunique()
+kpi_gremios = df_filtrado["Gremio"].nunique()
+kpi_nota = df_filtrado["Nota final"].mean()
 
-with col1:
-    st.metric("👥 Colaboradores únicos", df_filtrado["Colaborador"].nunique())
-with col2:
-    st.metric("📍 Provincias", df_filtrado["Provincia"].nunique())
-with col3:
-    st.metric("🛠️ Gremios", df_filtrado["Gremio"].nunique())
-with col4:
-    st.metric("⭐ Nota final media", f"{df_filtrado['Nota final'].mean():.2f}")
+st.markdown(
+    f"""
+    <div class="kpi-row">
+        <div class="kpi-card">
+            <div class="kpi-icon">👥</div>
+            <div class="kpi-label">Colaboradores únicos</div>
+            <div class="kpi-value">{kpi_colabs}</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">📍</div>
+            <div class="kpi-label">Provincias</div>
+            <div class="kpi-value">{kpi_provincias}</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">🛠️</div>
+            <div class="kpi-label">Gremios</div>
+            <div class="kpi-value">{kpi_gremios}</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">⭐</div>
+            <div class="kpi-label">Nota final media</div>
+            <div class="kpi-value">{kpi_nota:.2f}</div>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 st.markdown("---")
 
